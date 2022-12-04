@@ -1,4 +1,7 @@
+from django.core.mail import send_mail
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.conf import settings
 from django.shortcuts import reverse
 from django.utils import timezone
@@ -94,6 +97,36 @@ class CartItems(models.Model):
         return reverse("main:update_status", kwargs={
             'pk' : self.pk
         })
+
+@receiver(post_save, sender=CartItems)
+def send_notification_on_order_creation_or_change(sender, instance, created, **kwargs):
+    """A post  save signal to send an email once an order has been created. """
+
+    #New order has been created.
+    if created:
+        message = f'We have received your new order with ID {instance.id}. Thank you. We shall serve you shortly.'
+        send_mail(
+            'New Order',
+            message,
+            'xyz@gmail.com',
+            [instance.user.email]
+        )
+
+    else:
+        if instance.status == 'Delivered':
+            message = f'Your order {instance.id} has been updated to delivered'
+            send_mail(
+                'Order Updated',
+                message,
+                'xyz@gmail.com',
+                [instance.user.email]
+            )
+
+
+
+
+
+
     
 
 
