@@ -37,7 +37,8 @@
             <div class="col-sm-4">
                 <div class="card mb-3" style="height: fit-content; overflow: auto;">
                   <img src="{{ item.image.url }}" style="height: 250px;">
-                    <div class="card-body text-center">
+                    <div class="card-body text-center">      
+                      <button class="btn btn-warning">By: Mark </button>
                       <h5 class="text-center"><a href="{% url 'main:dishes' item.slug %}">{{ item.title }} </a><span class="badge badge-{{ item.label_colour }}">{{ item.labels }}</span></h5>
                       <p class="text-center">{{ item.description }}</p>
                       <h5 class="text-center">USD.{{ item.price }}</h5>

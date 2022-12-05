@@ -88,6 +88,7 @@ DATABASES = {
     }
 }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -141,5 +142,3 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-EMAIL_BACKEND = 'django_ses.SESBackend'
